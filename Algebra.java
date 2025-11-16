@@ -13,13 +13,13 @@ public class Algebra {
 		// System.out.println(plus(2, times(4, 2))); // 2 + 4 * 2
 		// System.out.println(pow(5, 2)); // 5^3
 		// System.out.println(pow(3, 5)); // 3^5
-		// System.out.println(div(12, 3)); // 12 / 3
-		// System.out.println(div(5, 5)); // 5 / 5
-		// System.out.println(div(25, 7)); // 25 / 7
-		//System.out.println(mod(25, 7)); // 25 % 7
-		//System.out.println(mod(120, 6)); // 120 % 6
+		//System.out.println(div(12, 3)); // 12 / 3
+		//System.out.println(div(15, -5)); // 5 / 5
+		//System.out.println(div(-25, -5)); // 25 / 7
+		// System.out.println(mod(25, 7)); // 25 % 7
+		// System.out.println(mod(120, 6)); // 120 % 6
 		 System.out.println(sqrt(36));
-		 System.out.println(sqrt(263169));
+		 System.out.println(sqrt(1));
 		 System.out.println(sqrt(76123));
 	}
 
@@ -66,7 +66,10 @@ public class Algebra {
 	}
 
 	public static int pow(int x, int n) {
-		int res = 1;
+		int res = 0;
+		if (x == 0) {
+			res = 0;
+		}
 		if (x != 0 && n != 0) {
 			for (int i = 0; i < n; i++) {
 				res = times(res, x);
@@ -77,9 +80,27 @@ public class Algebra {
 
 	public static int div(int x1, int x2) {
 		int res = 0;
-		while (minus(x1, x2) >= 0) {
-			x1 = minus(x1, x2);
-			res++;
+		if ((x1 > 0 && x2 > 0)||(x1 < 0 && x2 < 0)) {
+			if(x1 < 0){
+				x1 = times(x1, -1);
+				x2 = times(x2, -1);
+			}
+			while (minus(x1, x2) >= 0) {
+				x1 = minus(x1, x2);
+				res++;
+			}
+		}
+		else{
+			if(x1 < 0){
+				x1 = times(x1, -1);
+			}
+			else{
+				x2 = times(x2, -1);
+			}
+			while (minus(x1, x2) >= 0) {
+				x1 = minus(x1, x2);
+				res--;
+			}
 		}
 		return res;
 	}
@@ -93,13 +114,23 @@ public class Algebra {
 
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
+		int left = 1, right = x/2;
 		int res = 0;
-		for (int i = 0; i < x; i++) {
-			if(times(i, i) > x){
-				i = x;
+		if(x == 1){
+			return 1;
+		}
+		while(left <= right){
+			int mid = left + (right - left)/2;
+			double sq = (double)mid * mid;
+			if(sq == x){
+				return mid;
 			}
-			else {
-				res = i;
+			if(sq < x){
+				res = mid;
+				left = mid + 1;
+			}
+			else{
+				right = mid - 1;
 			}
 		}
 		return res;
