@@ -11,7 +11,7 @@ public class Anagram {
 		System.out.println(preProcess("What? No way!!!"));
 
 		// Tests the randomAnagram function.
-		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
+		System.out.println("silent and " + randomAnagram("hello") + " are anagrams.");
 
 		// Performs a stress test of randomAnagram
 		String str = "1234567";
@@ -19,7 +19,7 @@ public class Anagram {
 		//// 10 can be changed to much larger values, like 1000
 		for (int i = 0; i < 10; i++) {
 			String randomAnagram = randomAnagram(str);
-			//System.out.println(randomAnagram);
+			// System.out.println(randomAnagram);
 			pass = pass && isAnagram(str, randomAnagram);
 			if (!pass)
 				break;
@@ -29,14 +29,14 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-//		System.out.println(str1 + " " + str2);
+		// System.out.println(str1 + " " + str2);
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
 		if (str1.length() != str2.length()) {
 			return false;
 		}
 		for (int i = 0; i < str1.length(); i++) {
-			if(str2.indexOf(str1.charAt(i)) < 0){
+			if (str2.indexOf(str1.charAt(i)) < 0) {
 				return false;
 			}
 			str2 = str2.substring(0, str2.indexOf(str1.charAt(i))) + str2.substring(str2.indexOf(str1.charAt(i)) + 1);
@@ -65,12 +65,12 @@ public class Anagram {
 	// the same
 	// characters as the given string, re-arranged in a random order.
 	public static String randomAnagram(String str) {
+		str = preProcess(str);
 		String shuffled = "";
-		while(shuffled.length() < str.length()){
+		while(str.length() > 0){
 			int ran = (int)(Math.random() * str.length());
-			if(shuffled.indexOf(str.charAt(ran)) < 0){
-				shuffled = shuffled + str.charAt(ran);
-			}
+			shuffled += str.charAt(ran);
+			str = str.substring(0, ran) + str.substring(ran+1);
 		}
 		return shuffled;
 	}
