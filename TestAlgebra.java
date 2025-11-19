@@ -164,7 +164,7 @@ public class TestAlgebra {
     private static int testMod() {
         System.out.println("\nTesting modulo operations:");
         totalTests += 6;
-        
+         
         boolean test1 = Algebra.mod(25, 7) == 4;
         System.out.println("Test 1 (basic modulo): " + (test1 ? "PASS" : "FAIL"));
         
